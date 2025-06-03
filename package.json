@@ -1,5 +1,5 @@
 {
-  "name": "12-forum",
+  "name": "12-forum-service",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "edward",
   "license": "ISC",
-  "description": "student web service",
+  "description": "forum web service",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
