@@ -55,7 +55,7 @@ class PostRepository {
       {_id: id},
       {
         $set: {title, content},
-        $push: { tags }
+        $addToSet: { tags: { $each: tags } }
       },
       {new: true})
   }
