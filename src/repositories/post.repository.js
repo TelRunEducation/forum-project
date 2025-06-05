@@ -56,6 +56,16 @@ class PostRepository {
       {$set: {title, tags, content}},
       {new: true})
   }
+
+  async getPostsByPeriod(from, to) {
+    return Post.find(
+      {
+        dateCreated: {
+          $gte: from,
+          $lte: to
+        }
+      })
+  }
 }
 
 export default new PostRepository();

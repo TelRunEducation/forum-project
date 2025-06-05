@@ -58,7 +58,14 @@ class PostService {
   }
 
   async getPostsByPeriod(dateFrom, dateTo) {
-    // todo: find posts by period
+    const from = new Date(dateFrom);
+    const to = new Date(dateTo);
+    if (!dateFrom || !dateTo) throw new Error("Bad request. Dates are not valid")
+
+    if (from >= to) throw new Error("Bad request. Dates are not valid")
+
+    return await postRepository.getPostsByPeriod(from, to);
+
   }
 
   async updatePost(id, data) {

@@ -63,6 +63,17 @@ class PostController {
       next(err)
     }
   }
+
+  async getPostsByPeriod(req, res, next) {
+    try {
+      const { dateFrom, dateTo } = req.query;
+      const posts = await postService.getPostsByPeriod(dateFrom, dateTo);
+      res.status(200).send(posts)
+
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 export default new PostController();
