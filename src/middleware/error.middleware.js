@@ -19,6 +19,15 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
+  if (err.name === 'CastError' ) {
+    return res.status(400).send({
+      code: 400,
+      status: 'Bad Request. Invalid input data',
+      message: err.message,
+      path: req.path,
+    })
+  }
+
   return res.status(500).send({
     code: 500,
     status: 'InternalServerError',
