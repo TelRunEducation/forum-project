@@ -53,7 +53,10 @@ class PostRepository {
   async updatePost(id, {title, tags, content}) {
     return Post.findOneAndUpdate(
       {_id: id},
-      {$set: {title, tags, content}},
+      {
+        $set: {title, content},
+        $push: { tags }
+      },
       {new: true})
   }
 
