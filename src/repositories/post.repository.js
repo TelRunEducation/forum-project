@@ -1,0 +1,61 @@
+import Post from '../models/post.model.js';
+
+class PostRepository {
+  async createPost(postData) {
+    console.log(postData);
+    const post = new Post(postData);
+    return post.save();
+  }
+
+  async findPostById(id) {
+    return Post.findById(id);
+  }
+
+  deletePost = async (id) =>
+    Post.findOneAndDelete({_id: id})
+
+  findPotsByAuthor = async (author) => Post.find({author})
+
+  async addLike(postId) {
+    return Post.findByIdAndUpdate(
+      {_id: postId},
+      {$inc: {likes: 1}},
+      {new: true}
+    )
+  }
+
+  async addComment(id, commenter, message) {
+    console.log(commenter);
+    return Post.findByIdAndUpdate(
+      {_id: id},
+      {
+        $push: {
+          comments: {
+            commenter,
+            message
+          }
+        }
+      },
+      {new: true}
+    )
+  }
+
+  async findPostsByTags(tags) {
+    const regexFilters = tags.map(tag => ({
+      tags: {$regex: `^${tag}$`, $options: 'i'}
+    }));
+
+    return Post.find({
+      $or: regexFilters
+    });
+  }
+
+  async updatePost(id, {title, tags, content}) {
+    return Post.findOneAndUpdate(
+      {_id: id},
+      {$set: {title, tags, content}},
+      {new: true})
+  }
+}
+
+export default new PostRepository();
