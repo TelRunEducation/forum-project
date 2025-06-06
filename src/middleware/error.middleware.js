@@ -1,7 +1,9 @@
 const errorHandler = (err, req, res, next) => {
     console.log(err.stack);
+    const messages = ['not found', 'Cast to ObjectId failed'];
+    const contains = messages.some(msg => err.message.includes(msg));
 
-    if(err.message && err.message.includes('not found')) {
+    if (err.message && contains) {
         return res.status(404).json({
             status: 'Not Found',
             code: 404,

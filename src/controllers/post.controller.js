@@ -14,7 +14,72 @@ class PostController {
         try {
             const post = await postService.getPostById(req.params.id);
             res.status(200).json(post);
-        }catch(err) {
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async addLike(req, res, next) {
+        try {
+            await postService.addLike(req.params.id);
+            res.sendStatus(204);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async getPostsByAuthor(req, res, next) {
+        try {
+            const posts = await postService.getPostsByAuthor(req.params.author);
+            res.json(posts);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async addComment(req, res, next) {
+        try {
+            const post = await postService.addComment(req.params.id, req.params.commenter, req.body.message);
+            res.json(post);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async deletePost(req, res, next) {
+        try {
+            const post = await postService.deletePost(req.params.id);
+            res.json(post);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async getPostsByTags(req, res, next) {
+        // FIXME if values array
+        try {
+            const posts = await postService.getPostsByTags(req.query.values);
+            res.json(posts);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async getPostsByPeriod(req, res, next) {
+        try {
+            const {dateFrom, dateTo} = req.query;
+            const posts = await postService.getPostsByPeriod(dateFrom, dateTo);
+            res.json(posts);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async updatePost(req, res, next) {
+        try {
+            const post = await postService.updatePost(req.params.id, req.body);
+            res.json(post);
+        } catch (err) {
             next(err);
         }
     }

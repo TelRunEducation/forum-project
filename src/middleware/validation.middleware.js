@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+// TODO validate dateFrom and dateTo in date period
+
 const schemas = {
     createPost: Joi.object({
         title: Joi.string().required(),
