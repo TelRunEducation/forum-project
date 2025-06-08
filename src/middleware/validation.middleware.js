@@ -1,7 +1,5 @@
 import Joi from 'joi';
 
-// TODO validate dateFrom and dateTo in date period
-
 const schemas = {
     createPost: Joi.object({
         title: Joi.string().required(),
@@ -17,11 +15,16 @@ const schemas = {
         title: Joi.string(),
         content: Joi.string(),
         tags: Joi.array().items(Joi.string())
+    }),
+
+    dateFormat: Joi.object({
+        dateFrom: Joi.date().iso().required(),
+        dateTo: Joi.date().iso().required()
     })
 
 }
 
-const validate = (schemaName) => {
+const validate = (schemaName, target = 'body') => {
     return (req, res, next) => {
         const schema = schemas[schemaName];
 
@@ -29,7 +32,7 @@ const validate = (schemaName) => {
             return next(new Error(`Schema ${schemaName} not found`));
         }
 
-        const {error} = schema.validate(req.body);
+        const {error} = schema.validate(req[target]);
 
         if (error) {
             return res.status(400).send({

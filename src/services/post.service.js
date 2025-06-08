@@ -26,7 +26,6 @@ class PostService {
     }
 
     async addComment(id, commenter, message) {
-        // FIXME fix dateCreated format
         const comment = {user: commenter, message};
         const post = await postRepository.addComment(id, comment);
         if (!post) {
