@@ -1,4 +1,5 @@
 import UserAccount from '../models/userAccount.model.js';
+import bcrypt from "bcrypt";
 
 class UserAccountRepository{
     async addUser(user){
@@ -27,6 +28,8 @@ class UserAccountRepository{
     }
 
     async changePassword(login, password){
+        const salt = await bcrypt.genSalt(12);
+        password = await bcrypt.hash(password, salt);
         return UserAccount.findByIdAndUpdate(login, {$set: {password}}, {new: true});
     }
 }

@@ -57,12 +57,11 @@ class PostController {
 
     async getPostsByTags(req, res, next) {
         let values;
-        if(Array.isArray(req.query.values)) {
+        if (Array.isArray(req.query.values)) {
             values = req.query.values.reduce((acc, item) => acc + ',' + item);
-        }else {
+        } else {
             values = req.query.values;
         }
-        console.log(values);
         try {
             const posts = await postService.getPostsByTags(values);
             res.json(posts);
