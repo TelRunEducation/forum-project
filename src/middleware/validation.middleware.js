@@ -1,6 +1,13 @@
 import Joi from 'joi';
 
 const schemas = {
+  register: Joi.object({
+    login: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    password: Joi.string().required(),
+  }),
+
   createPost: Joi.object({
     title: Joi.string().required(),
     content: Joi.string().required(),

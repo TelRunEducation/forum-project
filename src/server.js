@@ -1,13 +1,17 @@
 import express from "express";
 import mongoose from "mongoose";
 import postRoutes from "./routes/post.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 import config from "./config/config.js";
+import cors from 'cors'
 
 const app = express();
+app.use(cors())
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+//app.use(express.urlencoded({extended: true}));
 app.use('/forum', postRoutes);
+app.use('/account', userRoutes);
 app.use(errorHandler)
 
 const connectDB = async () => {

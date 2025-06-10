@@ -28,6 +28,15 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
+  if (err.message.toLowerCase() === BAD_CREDENTIALS.toLowerCase() ) {
+    return res.status(409).send({
+      code: 409 ,
+      status: 'Confilct',
+      message: err.message,
+      path: req.path,
+    })
+  }
+
   return res.status(500).send({
     code: 500,
     status: 'InternalServerError',

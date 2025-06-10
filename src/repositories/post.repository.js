@@ -2,7 +2,6 @@ import Post from '../models/post.model.js';
 
 class PostRepository {
   async createPost(postData) {
-    console.log(postData);
     const post = new Post(postData);
     return post.save();
   }
@@ -14,7 +13,10 @@ class PostRepository {
   deletePost = async (id) =>
     Post.findOneAndDelete({_id: id})
 
-  findPotsByAuthor = async (author) => Post.find({author})
+  findPotsByAuthor = async (author) =>
+    Post.find({
+      author: {$regex: `^${author}$`, $options: 'i'}
+    })
 
   async addLike(postId) {
     return Post.findByIdAndUpdate(
@@ -25,7 +27,6 @@ class PostRepository {
   }
 
   async addComment(id, commenter, message) {
-    console.log(commenter);
     return Post.findByIdAndUpdate(
       {_id: id},
       {

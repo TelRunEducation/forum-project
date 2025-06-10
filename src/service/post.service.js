@@ -28,7 +28,7 @@ class PostService {
 
   async addComment(id, commenter, message) {
     if (!message || !commenter) {
-      throw new Error(`Bad request  `);
+      throw new Error(`Bad request`);
     }
     const commentedPost = await postRepository.addComment(id, commenter, message);
     if (!commentedPost) {
@@ -38,11 +38,11 @@ class PostService {
   }
 
   async deletePost(id) {
-    const deletedUser = await postRepository.deletePost(id);
-    if (!deletedUser) {
+    const deletedPost = await postRepository.deletePost(id);
+    if (!deletedPost) {
       throw new Error(`Post with id ${id} not found`);
     }
-    return deletedUser;
+    return deletedPost;
   }
 
   async getPostsByTag(rawTags) {
