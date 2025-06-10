@@ -12,6 +12,15 @@ const errorHandler = (err, req, res, next) => {
         })
     }
 
+    if (err.message && err.message.includes('duplicate key error collection')) {
+        return res.status(409).json({
+            status: 'Conflict',
+            code: 409,
+            message: err.message,
+            path: req.path,
+        })
+    }
+
     return res.status(500).json({
         status: 'Internal Server Error',
         code: 500,
