@@ -1,8 +1,8 @@
 import AuthorizationTypes from "./authorizationTypes.js";
 
-export default function ownerOrAdminAuth(authorizationType) {
+export default function authorization(authorizationType, authParam = 'user') {
   return async (req, res, next) => {
-    const paramsLogin = req.params.user;
+    const paramsLogin = req.params[authParam];
 
     const {login, roles} = req.principal;
 

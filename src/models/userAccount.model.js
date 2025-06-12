@@ -26,7 +26,6 @@ const userAccountSchema = new mongoose.Schema({
     versionKey: false,
     toJSON: {
         transform(doc, ret) {
-            console.log('ret', ret)
             ret.login = ret._id;
             delete ret._id;
             delete ret.password;

@@ -6,6 +6,7 @@ class UserAccountService {
     }
 
     async getUser(login) {
+        console.log('dsdfsdfdsfsd', login);
         const userAccount = await userAccountRepository.findUser(login);
         if (!userAccount) {
             throw new Error(`User with login ${login} not found`);

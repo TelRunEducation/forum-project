@@ -3,9 +3,7 @@ import bcrypt from "bcrypt";
 
 class UserAccountRepository{
     async addUser(user){
-        console.log("userToSave", user);
         const userAccount = new UserAccount(user);
-        console.log("user account", userAccount);
         return userAccount.save();
     }
 

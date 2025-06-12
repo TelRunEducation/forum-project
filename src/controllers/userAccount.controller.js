@@ -11,7 +11,7 @@ class UserAccountController {
     }
 
     async login(req, res, next) {
-        const userAccount = await userAccountService.getUser(req.principal.username);
+        const userAccount = await userAccountService.getUser(req.principal.login);
         res.json(userAccount);
     }
 
