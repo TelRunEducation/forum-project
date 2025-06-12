@@ -14,7 +14,7 @@ const authentication = async (req, res, next) => {
         if (!userAccount || !(await userAccount.comparePassword(password))) {
             return res.status(401).send('Invalid credentials');
         }
-        req.principal = {username: login, roles: userAccount.roles};
+        req.principal = {login, roles: userAccount.roles};
     }
     next();
 }

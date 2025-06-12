@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 const userAccountSchema = new mongoose.Schema({
     _id: {
         type: String,
-        required: true,
         alias: 'login'
     },
     password: {
@@ -27,6 +26,7 @@ const userAccountSchema = new mongoose.Schema({
     versionKey: false,
     toJSON: {
         transform(doc, ret) {
+            console.log('ret', ret)
             ret.login = ret._id;
             delete ret._id;
             delete ret.password;
